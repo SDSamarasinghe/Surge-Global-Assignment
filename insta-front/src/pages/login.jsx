@@ -9,7 +9,9 @@ import {
   MDBBtn,
   MDBInput,
 } from "mdb-react-ui-kit";
-import { auth } from "../firebase";
+import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
+
+import { auth, storage } from "../firebase";
 import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
@@ -32,6 +34,7 @@ function Login() {
   const [registerEmail, setRegisterEmail] = useState("");
   const [registerPassword, setRegisterPassword] = useState("");
   const [username, setUsername] = useState("");
+  const [imgUrl, setImgUrl] = useState(undefined);
 
   const handleJustifyClick = (value) => {
     if (value === justifyActive) {
@@ -53,6 +56,7 @@ function Login() {
         // update user profile
         updateProfile(result.user, {
           displayName: username,
+          photoURL: imgUrl,
         }).then(() => {
           toast("Registered", {
             position: "top-center",
@@ -95,6 +99,31 @@ function Login() {
     } catch {
       setError("Failed to log in");
     }
+  };
+
+  const handleImageSelectChange = (e) => {
+    const file = e.target.files[0];
+
+    // get file name
+    const fileName = file.name;
+
+    const storageRef = ref(storage, `${fileName}`);
+
+    const uploadTask = uploadBytesResumable(storageRef, file);
+
+    // 'file' comes from the Blob or File API
+    uploadTask.on(
+      "state_changed",
+      (snapshot) => {},
+      (error) => {
+        console.log(error);
+      },
+      () => {
+        getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
+          setImgUrl(downloadURL);
+        });
+      }
+    );
   };
 
   return (
@@ -175,7 +204,22 @@ function Login() {
             onChange={(e) => setRegisterPassword(e.target.value)}
           />
 
-          <MDBBtn className="mb-4 w-100" onClick={handleRegister}>
+          <label class="form-label" for="image">
+            Choose an image
+          </label>
+
+          <input
+            onChange={handleImageSelectChange}
+            type="file"
+            class="form-control"
+            id="image"
+          />
+
+          <MDBBtn
+            className="mb-4 mt-2 w-100"
+            disabled={!imgUrl}
+            onClick={handleRegister}
+          >
             Sign up
           </MDBBtn>
         </MDBTabsPane>

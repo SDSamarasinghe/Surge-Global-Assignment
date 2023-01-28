@@ -1,3 +1,15 @@
 .card-like {
   cursor: pointer;
 }
+
+.profile-pic {
+  width: "30px";
+  height: "30px";
+  object-fit: "cover";
+  border-radius: "50%";
+}
+
+.logout {
+  width: 15px;
+  cursor: pointer;
+}
