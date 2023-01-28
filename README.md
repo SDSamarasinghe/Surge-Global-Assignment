@@ -13,8 +13,8 @@ This is a mini instagram clone application created for the surge global intern p
 
 **Client:** React
 
-**Server:** Node, Express
+**Server:** Node, Express, MongoDB
 
-**Auth Provider:** Firebase
+**Auth Provider and Storage:** Firebase
 
 **DevOps:** Docker
