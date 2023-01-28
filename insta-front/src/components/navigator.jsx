@@ -19,15 +19,13 @@ export default function Navigator() {
 
   return (
     <MDBNavbar expand="lg" height={"100px"} light bgColor="light">
-      <MDBContainer size="md d-flex">
-        <h3> Home </h3>
-        <p
-          style={{
-            paddingTop: "5px",
-          }}
-        >
-          {user && user.email}
-        </p>
+      <MDBContainer size="md d-flex align-items-center">
+        <div>
+          <img src="/logo.png" alt="Insta logo" />
+        </div>
+        <div className="pt-2">
+          <p>{user && user.email}</p>
+        </div>
       </MDBContainer>
     </MDBNavbar>
   );

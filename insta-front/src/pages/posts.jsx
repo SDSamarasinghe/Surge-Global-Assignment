@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import client from "../utils/axios";
 import { onAuthStateChanged } from "firebase/auth";
+import { useNavigate } from "react-router-dom";
 
 import { auth } from "../firebase";
 import Post from "../components/post";
@@ -8,6 +9,7 @@ import Post from "../components/post";
 export default function Posts() {
   const [posts, setPosts] = useState([]);
   const [user, setUser] = useState();
+  const navigate = useNavigate();
 
   useEffect(() => {
     client
@@ -26,6 +28,7 @@ export default function Posts() {
         setUser(user);
       } else {
         setUser(undefined);
+        navigate("/auth");
       }
     });
   }, []);
