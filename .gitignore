@@ -4,6 +4,9 @@
 /node_modules
 /.pnp
 .pnp.js
+/backend/.vscode
+
+.vscode/
 
 # testing
 /coverage
@@ -25,3 +28,4 @@ yarn-error.log*
 /node_modules
 node_modules/
 .env
+backend/.vscode/launch.json
