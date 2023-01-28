@@ -45,7 +45,7 @@ export default function Posts() {
   };
 
   return (
-    <div className="d-flex items-center flex-column align-items-center gap-3">
+    <div className="d-flex items-center flex-column align-items-center gap-3 mt-2">
       {posts &&
         posts.map((post) => (
           <Post post={post} user={user} onLike={handleLike} />
